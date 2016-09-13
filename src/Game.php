@@ -1,5 +1,4 @@
 <?php
-    require_once 'Player.php';
     class Game
     {
         private $deck;
@@ -49,6 +48,7 @@
             $this->player->setHand(array());
             $this->dealer->setScore(0);
             $this->dealer->setHand(array());
+            $this->deck = array(2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,"j","j","j","j","q","q","q","q","k","k","k","k","a","a","a","a");
 
             $this->hitPlayer();
             $this->hitDealer();
@@ -79,7 +79,10 @@
             }
 
             $this->player->setScore($playerScore);
-            return $playerScore;
+
+            if ($playerScore > 21) {
+                return true;
+            }
         }
 
         function hitDealer()
@@ -111,30 +114,25 @@
             $playerScore = $this->player->getScore();
             $playerMoney = $this->player->getMoney();
             $dealerScore = (int)$this->dealer->getScore();
+            $dealer = $this->dealer->getHand();
+
+            if ($dealerScore < 17) {
+                $this->hitDealer();
+            }
+
             if ($playerScore > $dealerScore && $playerScore <= 21) {
                 $this->player->setMoney($playerMoney+5);
                 return true;
-                //player wins
-                // display play again button
             } else {
+                $this->player->setMoney($playerMoney-5);
                 return false;
-                //player loses
-                // display play again button
             }
         }
 
-        function saveHand()
+        function saveGame()
         {
-            array_push($_SESSION['player'], $this);
+            $_SESSION['game'] = $this;
         }
 
-        function saveDeck()
-        {
-            array_push($_SESSION['dealer'], $this);
-        }
     }
-
-    $game = new Game;
-    $game->start();
-
 ?>

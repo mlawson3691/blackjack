@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Blackjack</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Play Blackjack!</h1>
+            <h3>You Win!</h3>
+
+            <ul>
+                <li>Your cards:
+                    <ul>
+                        {% for card in game.player.getHand %}
+                            <li>{{ card }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <li>Dealer's cards:
+                    <ul>
+                        {% for card in game.dealer.getHand %}
+                            <li>{{ card }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <li>Your current hand: {{ game.player.getScore}}</li>
+                <li>Your money: {{ game.player.getMoney}}</li>
+            </ul>
+            <br><br>
+
+            <form id="hit" action="/" method="get">
+                <button type="submit" class="btn btn-success">Play Again?</button>
+            </form>
+        </div>
+    </body>
+</html>

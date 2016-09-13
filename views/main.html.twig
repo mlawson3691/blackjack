@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Blackjack</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Play Blackjack!</h1>
+            <h3>Directions</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et sapien erat. Nam eleifend ornare libero, vel fringilla enim. Quisque ac odio quis nulla placerat auctor sit amet in mi. Aenean in tincidunt tellus, vel commodo leo. Nullam non diam consequat, accumsan purus ac, pharetra dolor. Nam dignissim ac mauris nec dapibus. Donec est libero, congue a neque ut, accumsan auctor nulla. Integer eget dignissim orci, malesuada ornare tortor. </p>
+            <br><br>
+
+            <ul>
+                <li>Your cards:
+                    <ul>
+                        {% for card in game.player.getHand %}
+                            <li>{{ card }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <li>Your current hand: {{ game.player.getScore}}</li>
+                <li>Your money: {{ game.player.getMoney}}</li>
+            </ul>
+            <br><br>
+
+            <form id="hit" action="/" method="post">
+                <input type='hidden' name='hit' value='1'>
+                <input type='hidden' name='hold' value='0'>
+                <button type="submit" class="btn btn-danger">Hit me!</button>
+            </form>
+
+            <form id="hold" action="/" method="post">
+                <input type='hidden' name='hit' value='0'>
+                <input type='hidden' name='hold' value='1'>
+                <button type="submit" class="btn btn-primary">Hold!</button>
+            </form>
+        </div>
+    </body>
+</html>
