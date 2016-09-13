@@ -6,7 +6,9 @@
     session_start();
 
     if (empty($_SESSION['game'])) {
-        $_SESSION['game'] = "";
+        $player = new Player;
+        $dealer = new Player;
+        $_SESSION['game'] = new Game(array(), $player, $dealer);
     }
 
     use Symfony\Component\Debug\Debug;
@@ -18,9 +20,7 @@
     ));
 
     $app->get('/', function() use ($app) {
-        $game = new Game;
-        $game ->start();
-        $game->saveGame();
+        $_SESSION['game']->start();
 
         return $app['twig']->render('main.html.twig', array( 'game' => $_SESSION['game']));
     });

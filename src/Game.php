@@ -5,11 +5,11 @@
         private $player;
         private $dealer;
 
-        function __construct()
+        function __construct($deck, $player, $dealer)
         {
-            $this->deck = array(2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,"j","j","j","j","q","q","q","q","k","k","k","k","a","a","a","a");
-            $this->player = new Player;
-            $this->dealer = new Player;
+            $this->deck = $deck;
+            $this->player = $player;
+            $this->dealer = $dealer;
         }
 
         function setDeck($new_deck)
@@ -63,6 +63,7 @@
             $player1 = $this->player->getHand();
             $deck = $this->deck;
             $playerScore = $this->player->getScore();
+            $playerMoney = $this->player->getMoney();
 
             $card = array_rand ($this->deck, 1);
             array_splice($this->deck, $card, 1);
@@ -81,6 +82,7 @@
             $this->player->setScore($playerScore);
 
             if ($playerScore > 21) {
+                $this->player->setMoney($playerMoney-5);
                 return true;
             }
         }
